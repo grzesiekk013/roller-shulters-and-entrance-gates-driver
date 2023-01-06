@@ -1,17 +1,14 @@
-// Placed in the public domain by Earle F. Philhower, III, 2022
 #include <NTPClient.h>
 #include <WiFiUdp.h>
 #include <WiFi.h>
  
 #ifndef STASSID
-#define STASSID "Mikrotik-2G";
-#define STAPSK "afzd5862";
+#define STASSID "your-ssid";
+#define STAPSK "your-password";
 #endif
-
 
 const char* ssid = STASSID;
 const char* password = STAPSK;
-
 
 String wszystkieZaluzjeStatus = "u gory";
 String wejscioweZaluzjeStatus = "u gory";
