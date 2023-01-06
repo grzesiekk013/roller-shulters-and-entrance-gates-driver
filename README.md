@@ -2,6 +2,7 @@
 Client &amp; Server software/firmware used for roller shutters and entrance gates
 
 ![androidAppIco128](https://user-images.githubusercontent.com/90092477/211022856-fb7a1996-3683-4325-965b-60db5505ddb4.png)
+
 About:
 
 Setup:
