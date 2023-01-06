@@ -3,8 +3,8 @@
 #include <WiFiUdp.h>
 #include <time.h>
 #ifndef STASSID
-#define STASSID "Mikrotik-2G";
-#define STAPSK  "afzd5862";
+#define STASSID "your-ssid";
+#define STAPSK  "your-password";
 #endif
 
 const char* ssid = STASSID;
