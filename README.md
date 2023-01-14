@@ -25,4 +25,6 @@ Setup:
     
      For Android: Edit <>.cs file. Install. Open app, then go to Settings, set connection type and edit server ip & port if needed
     
+Wiring example:
+
 
