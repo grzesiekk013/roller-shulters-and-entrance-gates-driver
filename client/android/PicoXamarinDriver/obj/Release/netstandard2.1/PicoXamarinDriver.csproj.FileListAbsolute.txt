@@ -1,0 +1,17 @@
+C:\Users\Grzep\source\repos\PicoXamarinDriver\PicoXamarinDriver\bin\Release\netstandard2.1\PicoXamarinDriver.deps.json
+C:\Users\Grzep\source\repos\PicoXamarinDriver\PicoXamarinDriver\bin\Release\netstandard2.1\PicoXamarinDriver.dll
+C:\Users\Grzep\source\repos\PicoXamarinDriver\PicoXamarinDriver\bin\Release\netstandard2.1\PicoXamarinDriver.pdb
+C:\Users\Grzep\source\repos\PicoXamarinDriver\PicoXamarinDriver\obj\Release\netstandard2.1\PicoXamarinDriver.csproj.AssemblyReference.cache
+C:\Users\Grzep\source\repos\PicoXamarinDriver\PicoXamarinDriver\obj\Release\netstandard2.1\PicoXamarinDriver.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Grzep\source\repos\PicoXamarinDriver\PicoXamarinDriver\obj\Release\netstandard2.1\App.xaml.g.cs
+C:\Users\Grzep\source\repos\PicoXamarinDriver\PicoXamarinDriver\obj\Release\netstandard2.1\AppShell.xaml.g.cs
+C:\Users\Grzep\source\repos\PicoXamarinDriver\PicoXamarinDriver\obj\Release\netstandard2.1\Views\MainPage.xaml.g.cs
+C:\Users\Grzep\source\repos\PicoXamarinDriver\PicoXamarinDriver\obj\Release\netstandard2.1\Views\SettingsPage.xaml.g.cs
+C:\Users\Grzep\source\repos\PicoXamarinDriver\PicoXamarinDriver\obj\Release\netstandard2.1\PicoXamarinDriver.AssemblyInfoInputs.cache
+C:\Users\Grzep\source\repos\PicoXamarinDriver\PicoXamarinDriver\obj\Release\netstandard2.1\PicoXamarinDriver.AssemblyInfo.cs
+C:\Users\Grzep\source\repos\PicoXamarinDriver\PicoXamarinDriver\obj\Release\netstandard2.1\PicoXamarinDriver.csproj.CoreCompileInputs.cache
+C:\Users\Grzep\source\repos\PicoXamarinDriver\PicoXamarinDriver\obj\Release\netstandard2.1\XamlC.stamp
+C:\Users\Grzep\source\repos\PicoXamarinDriver\PicoXamarinDriver\obj\Release\netstandard2.1\PicoXamarinDriver.dll
+C:\Users\Grzep\source\repos\PicoXamarinDriver\PicoXamarinDriver\obj\Release\netstandard2.1\refint\PicoXamarinDriver.dll
+C:\Users\Grzep\source\repos\PicoXamarinDriver\PicoXamarinDriver\obj\Release\netstandard2.1\PicoXamarinDriver.pdb
+C:\Users\Grzep\source\repos\PicoXamarinDriver\PicoXamarinDriver\obj\Release\netstandard2.1\ref\PicoXamarinDriver.dll

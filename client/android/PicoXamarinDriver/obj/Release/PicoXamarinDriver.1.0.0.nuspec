@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>PicoXamarinDriver</id>
+    <version>1.0.0</version>
+    <authors>PicoXamarinDriver</authors>
+    <description>Package Description</description>
+    <dependencies>
+      <group targetFramework=".NETStandard2.1">
+        <dependency id="Xamarin.Essentials" version="1.7.0" exclude="Build,Analyzers" />
+        <dependency id="Xamarin.Forms" version="5.0.0.2196" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="C:\Users\Grzep\source\repos\PicoXamarinDriver\PicoXamarinDriver\bin\Release\netstandard2.1\PicoXamarinDriver.dll" target="lib\netstandard2.1\PicoXamarinDriver.dll" />
+  </files>
+</package>

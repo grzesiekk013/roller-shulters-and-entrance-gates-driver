@@ -1,0 +1,183 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="PicoXamarinDriver.Views.ItemsPage"
+             Title="Pico Relays Driver"
+             xmlns:local="clr-namespace:PicoXamarinDriver.ViewModels"  
+             xmlns:model="clr-namespace:PicoXamarinDriver.Models"  
+             x:Name="BrowseItemsPage">
+
+    <Grid BackgroundColor="#000000">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <!--<StackLayout BackgroundColor="{StaticResource Accent}" VerticalOptions="FillAndExpand" HorizontalOptions="Fill">
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center">
+                <ContentView Padding="0,40,0,40" VerticalOptions="FillAndExpand">
+                    <Image Source="xamarin_logo.png" VerticalOptions="Center" HeightRequest="64" />
+                </ContentView>
+            </StackLayout>
+        </StackLayout>-->
+        <ScrollView Grid.Row="1">
+            <StackLayout Orientation="Vertical" Spacing="10">
+                <!-- Padding="30,24,30,24" -->
+
+                <Grid BackgroundColor="#212121" Padding="10" >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="85" />
+                        <ColumnDefinition Width="75" />
+                        <ColumnDefinition Width="5" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Row="0" Grid.Column="0" Text="Adres Serwera: " HorizontalTextAlignment="Start" TextColor="White" FontSize="16"/>
+                    <Label Grid.Row="0" Grid.Column="1" Text="{Binding ServerAddress}" HorizontalTextAlignment="End" TextColor="White" FontSize="16"/>
+                    <Label Grid.Row="0" Grid.Column="2" Text=":" HorizontalTextAlignment="Center" TextColor="White" FontSize="13"/>
+                    <Label Grid.Row="0" Grid.Column="3" Text="{Binding ServerPort}" HorizontalTextAlignment="Start" TextColor="White" FontSize="13"/>
+      
+                </Grid>
+
+
+                <Grid BackgroundColor="#212121" Padding="10" Margin="0,0,0,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="25" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        
+
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="150" />
+                    </Grid.ColumnDefinitions>
+
+
+                    <Label Grid.Row="0" Grid.Column="0" Text="Zablokuj ustawienia globalne serwera" HorizontalTextAlignment="Start" TextColor="White" FontSize="16" Margin="0,5,0,0"/>
+                    <Switch Grid.Row="0" Grid.Column="1" IsToggled="{Binding Locked}" ></Switch>
+                    <Label Grid.Row="1" Grid.Column="0" Text="Adres Serwera" HorizontalTextAlignment="Start" TextColor="White" FontSize="16" Margin="0,5,0,0"/>
+                    <Entry Grid.Row="1" Grid.Column="1" Text="{Binding ServerAddress}" PlaceholderColor="#ff5555" IsReadOnly="{Binding Locked}" HorizontalTextAlignment="Center"></Entry>
+                    <Label Grid.Row="2" Grid.Column="0" Text="Port Serwera" HorizontalTextAlignment="Start" TextColor="White" FontSize="16" Margin="0,5,0,0"/>
+                    <Entry Grid.Row="2" Grid.Column="1" Text="{Binding ServerPort}"  PlaceholderColor="#ff5555"  IsReadOnly="{Binding Locked}" HorizontalTextAlignment="Center"></Entry>
+                    
+                </Grid>
+
+                <Grid BackgroundColor="#212121" Padding="10" Margin="0,0,0,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="25" />
+                        <RowDefinition Height="*" />
+                        
+
+
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="200" />
+                    </Grid.ColumnDefinitions>
+
+
+                    <Label Grid.Row="0" Grid.Column="0" Text="Zablokuj ustawienia klucza"  HorizontalTextAlignment="Start" TextColor="White" FontSize="16" Margin="0,5,0,0"/>
+                    <Switch Grid.Row="0" Grid.Column="1" IsToggled="{Binding LockedKey}"></Switch>
+                    
+                    <Label Grid.Row="1" Grid.Column="0" Text="Klucz" HorizontalTextAlignment="Start" TextColor="White" FontSize="16" Margin="0,5,0,0" />
+                    <Entry Grid.Row="1" Grid.Column="1" Text="{Binding Key}"  PlaceholderColor="#3399FF" IsReadOnly="{Binding LockedKey}" HorizontalTextAlignment="Center" IsPassword="True"></Entry>
+                   
+
+                </Grid>
+                <Grid BackgroundColor="#212121" Padding="10" Margin="0,0,0,0">
+                    <Grid.RowDefinitions>
+                       
+                        <RowDefinition Height="*" />
+
+
+
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                      
+                    </Grid.ColumnDefinitions>
+
+
+                   
+                    <Button Grid.Column="0" Grid.Row="0" Text="Zapisz ustawienia" BackgroundColor="#656565"  Margin="0,0,0,0" Command="{Binding btnSave}"/>
+
+                </Grid>
+
+                <Frame BackgroundColor="#151515" BorderColor="#989898"  HasShadow="True" Padding="1" Margin="50,-100,50,0" HeightRequest="200" IsVisible="{Binding FrameVisible}" >
+                    <Grid BackgroundColor="#151515">
+                        <Grid.RowDefinitions>
+
+                            <RowDefinition Height="*" />
+
+                            <RowDefinition Height="*" />
+
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+
+                        </Grid.ColumnDefinitions>
+                        <Label FontSize="Large" TextColor="White" FontAttributes="Bold" Grid.Row="1" Grid.Column="0" Text="Ustawienia zostały zapisane." HorizontalTextAlignment="Center"></Label>
+                        <Button Grid.Row="2" Grid.Column="0" BackgroundColor="#323232"  Text="Zamknij" Command="{Binding btnOk}"></Button>
+                    </Grid>
+
+                </Frame>
+               
+
+
+                <!--<Label Text="Start developing now" FontSize="Title"/>
+                <Label Text="Make changes to your XAML file and save to see your UI update in the running app with XAML Hot Reload. Give it a try!" FontSize="16" Padding="0,0,0,0"/>
+                <Label FontSize="16" Padding="0,24,0,0">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <FormattedString.Spans>
+                                <Span Text="Learn more at "/>
+                                <Span Text="https://aka.ms/xamarin-quickstart" FontAttributes="Bold"/>
+                            </FormattedString.Spans>
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+                <Button Margin="0,10,0,0" Text="Learn more"
+                        Command="{Binding OpenWebCommand}"
+                        BackgroundColor="{StaticResource Primary}"
+                        TextColor="White" />-->
+            </StackLayout>
+        </ScrollView>
+    </Grid>
+
+
+    <!--
+      x:DataType enables compiled bindings for better performance and compile time validation of binding expressions.
+      https://docs.microsoft.com/xamarin/xamarin-forms/app-fundamentals/data-binding/compiled-bindings
+    -->
+    <!--<RefreshView x:DataType="local:ItemsViewModel" Command="{Binding LoadItemsCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
+        <CollectionView x:Name="ItemsListView"
+                ItemsSource="{Binding Items}"
+                SelectionMode="None">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <StackLayout Padding="10" x:DataType="model:Item">
+                        <Label Text="{Binding Text}" 
+                            LineBreakMode="NoWrap" 
+                            Style="{DynamicResource ListItemTextStyle}" 
+                            FontSize="16" />
+                        <Label Text="{Binding Description}" 
+                            LineBreakMode="NoWrap"
+                            Style="{DynamicResource ListItemDetailTextStyle}"
+                            FontSize="13" />
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer 
+                                NumberOfTapsRequired="1"
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type local:ItemsViewModel}}, Path=ItemTapped}"		
+                                CommandParameter="{Binding .}">
+                            </TapGestureRecognizer>
+                        </StackLayout.GestureRecognizers>
+                    </StackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </RefreshView>-->
+</ContentPage>
