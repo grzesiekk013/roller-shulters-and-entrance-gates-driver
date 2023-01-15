@@ -1,8 +1,0 @@
-C:\Users\Grzep\Desktop\Coding\Releases\PicoXamarinDriver.dll
-C:\Users\Grzep\Desktop\Coding\Releases\PicoXamarinDriver.deps.json
-C:\Users\Grzep\Desktop\Coding\Releases\PicoXamarinDriver.pdb
-C:\Users\Grzep\Desktop\Coding\Releases\System.Numerics.Vectors.dll
-C:\Users\Grzep\Desktop\Coding\Releases\Xamarin.Essentials.dll
-C:\Users\Grzep\Desktop\Coding\Releases\Xamarin.Forms.Core.dll
-C:\Users\Grzep\Desktop\Coding\Releases\Xamarin.Forms.Platform.dll
-C:\Users\Grzep\Desktop\Coding\Releases\Xamarin.Forms.Xaml.dll
