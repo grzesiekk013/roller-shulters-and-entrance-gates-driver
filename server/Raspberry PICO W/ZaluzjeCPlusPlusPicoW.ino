@@ -4,8 +4,8 @@
 #include <WiFi.h>
  
 #ifndef STASSID
-#define STASSID "Mikrotik-2G";
-#define STAPSK "afzd5862";
+#define STASSID "ssid";
+#define STAPSK "passwd";
 #endif
 
 
@@ -19,7 +19,7 @@ String formattedDate;
 String dayStamp;
 String timeStamp;
 String secretKey = "PhjCVzvU7GPvgC33CMxnRsj8CY9p4n2K";
-String tempLog = "";
+
 
 int godzina, minuta, sekunda;
 int najwczesniejszySwit = 4;
@@ -124,12 +124,12 @@ void relays(String ktore, String zadanie) {
       digitalWrite(OUT1, LOW);  //nieparzyste do gory
       digitalWrite(OUT3, LOW);  //nieparzyste do gory
       digitalWrite(OUT5, LOW);  //nieparzyste do gory
-      digitalWrite(OUT7, LOW);  //nieparzyste do gory
+      
       delay(czasWlaczeniaRelaya * 1000);
       digitalWrite(OUT1, HIGH);  //nieparzyste do gory
       digitalWrite(OUT3, HIGH);  //nieparzyste do gory
       digitalWrite(OUT5, HIGH);  //nieparzyste do gory
-      digitalWrite(OUT7, HIGH);  //nieparzyste do gory
+     
       
       //digitalWrite
     } else {
@@ -137,39 +137,41 @@ void relays(String ktore, String zadanie) {
       wszystkieZaluzjeStatus = "na dole";
       wejscioweZaluzjeStatus = "na dole";
       //digitalWrite
-      digitalWrite(OUT8, LOW);  //nieparzyste do gory
+      
       digitalWrite(OUT2, LOW);  //parzyste na dol
       digitalWrite(OUT4, LOW);  //parzyste na dol
       digitalWrite(OUT6, LOW);  //parzyste na dol
       delay(czasWlaczeniaRelaya * 1000);
       //digitalWrite
-      digitalWrite(OUT8, HIGH);  //nieparzyste do gory
+      
       digitalWrite(OUT2, HIGH);  //parzyste na dol
       digitalWrite(OUT4, HIGH);  //parzyste na dol
       digitalWrite(OUT6, HIGH);  //parzyste na dol
     }
   }
-  if (ktore == "wejscie") {
+  if (ktore == "wejsciowe") {
     if (zadanie == "do_gory") {
       wejscie_do_gory_called = false;
       wejscioweZaluzjeStatus = "u gory";
       //digitalWrite
 
-      digitalWrite(OUT7, LOW);  //nieparzyste do gory
+      digitalWrite(OUT5, LOW);  //nieparzyste do gory
       delay(czasWlaczeniaRelaya * 1000);
       //digitalWrite
-      digitalWrite(OUT7, HIGH);  //nieparzyste do gory
+      digitalWrite(OUT5, HIGH);  //nieparzyste do gory
+       Serial.println("Relays: " + ktore + " " + zadanie);
     } else {
       wejscie_na_dol_called = false;
       wejscioweZaluzjeStatus = "na dole";
       //digitalWrite
-      digitalWrite(OUT8, LOW);  //parzyste na dol
+      digitalWrite(OUT6, LOW);  //parzyste na dol
       delay(czasWlaczeniaRelaya * 1000);
-      digitalWrite(OUT8, HIGH);  //parzyste na dol
+      digitalWrite(OUT6, HIGH);  //parzyste na dol
       //digitalWrite
+       Serial.println("Relays: " + ktore + " " + zadanie);
     }
   }
-  Serial.println("Relays: " + ktore + " " + zadanie);
+ 
 }
 void brama_proc(String obj) {
   if (obj == "brama") {
@@ -205,19 +207,19 @@ void schedule() {
 
     ///////////////////////////reset
     if (godzina >= 1 && godzina <2 && (minuta % 5) == 0 && sekunda >= 45) {  //miedzy 1 a 3 co 5 min
-      schedule_dzisiaj_opuszczone = false;      schedule_dzisiaj_podniesione = false;  tempLog="";  }
+      schedule_dzisiaj_opuszczone = false;      schedule_dzisiaj_podniesione = false; }
 
     //////////////////////////Jesli nie podniesione
  if (!schedule_dzisiaj_podniesione) {
       if (godzina >= najpozniejszySwit && godzina < najwczesniejszyWieczor && (minuta % 5) == 0 && sekunda >= 15 && sekunda <= 50) {  //godzina 6-16 ci 5 min przedziale 15-30s
         relays("wszystkie", "do gory");        Serial.print(" " + String(godzina) + ":" + String(minuta) + " h");        Serial.println();// 9> (16
-        schedule_dzisiaj_podniesione = true;        tempLog +="Automatic up HARD_";tempLog += String(godzina) + ":" + String(minuta)+" ";
+        schedule_dzisiaj_podniesione = true;       
         wszystkieZaluzjeStatus = "u gory";
         wejscioweZaluzjeStatus = "u gory";
       }
            if (godzina >= najwczesniejszySwit && godzina < najpozniejszySwit && (minuta % 5) == 0 && czujnikStatus) { //miedzy 6 a 9
            relays("wszystkie", "do gory");        Serial.print(" " + String(godzina) + ":" + String(minuta));        Serial.println(); // 6> (9
-        schedule_dzisiaj_podniesione = true;        tempLog +="Automatic up Soft_";tempLog += String(godzina) + ":" + String(minuta)+" ";
+        schedule_dzisiaj_podniesione = true;       
         wszystkieZaluzjeStatus = "u gory";
         wejscioweZaluzjeStatus = "u gory";
       }
@@ -226,13 +228,13 @@ void schedule() {
     if (!schedule_dzisiaj_opuszczone) {
       if (godzina >= najpozniejszyWieczor && godzina < najwczesniejszySwit && (minuta % 5) == 0 && sekunda >= 15 && sekunda <= 30) {  //godzina po 23 do ranka
         relays("wszystkie", "na dol");        Serial.print(" " + String(godzina) + ":" + String(minuta) + " h");        Serial.println(); //23> (6)
-        schedule_dzisiaj_opuszczone = true;        tempLog +="Automatic down HARD_"; tempLog += String(godzina) + ":" + String(minuta)+" ";
+        schedule_dzisiaj_opuszczone = true;       
         wszystkieZaluzjeStatus = "na dole";
         wejscioweZaluzjeStatus = "na dole";
       }
       if (godzina >= najwczesniejszyWieczor && godzina < najpozniejszyWieczor && (minuta % 5) == 0 && !czujnikStatus) { //od popoludnia do 23
         relays("wszystkie", "na dol");        Serial.print(" " + String(godzina) + ":" + String(minuta));        Serial.println(); //16> (23
-         schedule_dzisiaj_opuszczone = true;         tempLog +="Automatic down Soft_";tempLog += String(godzina) + ":" + String(minuta)+" ";
+         schedule_dzisiaj_opuszczone = true;       
          wszystkieZaluzjeStatus = "na dole";
          wejscioweZaluzjeStatus = "na dole";
       }
@@ -252,8 +254,8 @@ void loop1(){
 
   if (wszystkie_do_gory_called) { relays("wszystkie", "do_gory"); }
   if (wszystkie_na_dol_called) { relays("wszystkie", "na_dol"); }
-  if (wejscie_do_gory_called) { relays("wejsciowe", "do_gory"); }
-  if (wejscie_na_dol_called) { relays("wejsciowe", "na_dol"); }
+  if (wejscie_do_gory_called) { relays("wejsciowe", "do_gory"); wejscie_do_gory_called=false;}
+  if (wejscie_na_dol_called) { relays("wejsciowe", "na_dol"); wejscie_do_gory_called=false;}
   if (brama_wjazdowa_called) { brama_proc("brama"); }
   if (brama_garazowa_called) { brama_proc("garaz"); }
   if (ustaw_czas_called) { ustaw_czas(); }
@@ -305,7 +307,6 @@ void loop() {
   client.print(";<br>");
   client.print("Czy czas ustawiony poprawnie: " + String(czasUstawionyPoprawnie));
   client.print(";<br>");
-  client.print(tempLog);
   client.print("</body></html>");
   /*if(czasUstawionyPoprawnie){
     client.print("Czas: " + godzina+":"+minuta+":"+sekunda);
