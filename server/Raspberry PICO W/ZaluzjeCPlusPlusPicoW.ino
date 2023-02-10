@@ -1,11 +1,14 @@
-// Placed in the public domain by Earle F. Philhower, III, 2022
 #include <NTPClient.h>
 #include <WiFiUdp.h>
 #include <WiFi.h>
  
 #ifndef STASSID
-#define STASSID "ssid";
-#define STAPSK "passwd";
+#define STASSID "SSID";
+#define STAPSK "PASSWD";
+const IPAddress ip(192, 168, 0, 5);
+const IPAddress gateway(192, 168, 0, 1);
+const IPAddress subnet(255, 255, 255, 0);
+
 #endif
 
 
@@ -22,7 +25,7 @@ String secretKey = "PhjCVzvU7GPvgC33CMxnRsj8CY9p4n2K";
 
 
 int godzina, minuta, sekunda;
-int najwczesniejszySwit = 4;
+int najwczesniejszySwit = 5;
 int najpozniejszySwit = 7;
 int najwczesniejszyWieczor = 16;
 int najpozniejszyWieczor = 22;
@@ -48,11 +51,9 @@ const int OUT3 = D2;
 const int OUT4 = D3;
 const int OUT5 = D4;
 const int OUT6 = D5;
-const int OUT7 = D6;
-const int OUT8 = D7;
-const int OUTX = D8;
-const int ErrorWifi = D9;
-const int ErrorCzas = D10;
+
+const int ErrorWifi = D6;
+const int ErrorCzas = D7;
 const int czujnik = A0;
 const int czujnikBariera = 400;
 
@@ -67,21 +68,20 @@ void setup1(){
   Serial.println("Second Core: Unlocked");
 
   timeClient.begin();  timeClient.setTimeOffset(3600);
+
   //synchronizacja czasu
   if (!timeClient.update()) {    Serial.println("Boot time: read time FAILED");    digitalWrite(ErrorCzas, HIGH);
   } else {    Serial.println("Boot time: " + timeClient.getFormattedTime());    czasUstawionyPoprawnie = true;    digitalWrite(ErrorCzas, LOW);  }
 
 }
 void setup() {
-  pinMode(OUTX, OUTPUT);
   pinMode(OUT1, OUTPUT);
   pinMode(OUT2, OUTPUT);
   pinMode(OUT3, OUTPUT);
   pinMode(OUT4, OUTPUT);
   pinMode(OUT5, OUTPUT);
   pinMode(OUT6, OUTPUT);
-  pinMode(OUT7, OUTPUT);
-  pinMode(OUT8, OUTPUT);
+
 
   digitalWrite(OUT1, HIGH); //turns on main relays
   digitalWrite(OUT2, HIGH); //turns on main relays
@@ -89,9 +89,6 @@ void setup() {
   digitalWrite(OUT4, HIGH); //turns on main relays
   digitalWrite(OUT5, HIGH); //turns on main relays
   digitalWrite(OUT6, HIGH); //turns on main relays
-  digitalWrite(OUT7, HIGH); //turns on main relays
-  digitalWrite(OUT8, HIGH); //turns on main relays
-  digitalWrite(OUTX, HIGH); //turns on main relays
  
   pinMode(ErrorWifi, OUTPUT);
   delay(2000);
@@ -104,7 +101,7 @@ void setup() {
 
   WiFi.mode(WIFI_STA);  WiFi.begin(ssid, password);
   while (WiFi.status() != WL_CONNECTED) {    delay(500);    Serial.print(F("."));  }
-
+  WiFi.config(ip, gateway, subnet);
   digitalWrite(ErrorWifi, LOW);
   isSecondCoreInitUnlocked = true;
   Serial.println();  Serial.println("WiFi connected: " + WiFi.SSID() + " (" + WiFi.RSSI() + " dB)");  Serial.println("Mac address: " + WiFi.macAddress());
@@ -129,7 +126,7 @@ void relays(String ktore, String zadanie) {
       digitalWrite(OUT1, HIGH);  //nieparzyste do gory
       digitalWrite(OUT3, HIGH);  //nieparzyste do gory
       digitalWrite(OUT5, HIGH);  //nieparzyste do gory
-     
+      
       
       //digitalWrite
     } else {
@@ -141,12 +138,14 @@ void relays(String ktore, String zadanie) {
       digitalWrite(OUT2, LOW);  //parzyste na dol
       digitalWrite(OUT4, LOW);  //parzyste na dol
       digitalWrite(OUT6, LOW);  //parzyste na dol
+    
       delay(czasWlaczeniaRelaya * 1000);
       //digitalWrite
       
       digitalWrite(OUT2, HIGH);  //parzyste na dol
       digitalWrite(OUT4, HIGH);  //parzyste na dol
       digitalWrite(OUT6, HIGH);  //parzyste na dol
+
     }
   }
   if (ktore == "wejsciowe") {
@@ -177,17 +176,17 @@ void brama_proc(String obj) {
   if (obj == "brama") {
     brama_wjazdowa_called = false;
     //digitalWrite
-    digitalWrite(OUT7, LOW);
-    delay(czasWlaczeniaRelaya * 1000);
-    digitalWrite(OUT7, HIGH);
+   
+    //delay(czasWlaczeniaRelaya * 1000);
+   
     //digitalWrite
   }
   if (obj == "garaz") {
     brama_garazowa_called = false;
     //digitalWrite
-    digitalWrite(OUT8, LOW);
-    delay(czasWlaczeniaRelaya * 1000);
-    digitalWrite(OUT8, HIGH);
+    
+    //delay(czasWlaczeniaRelaya * 1000);
+    
     //digitalWrite
   }
   Serial.println("Relays: " + obj);
@@ -195,14 +194,14 @@ void brama_proc(String obj) {
 //klasa led
 void schedule() {
   ////////////////////////////check time
-  if (czasUstawionyPoprawnie) {    if (analogRead(czujnik) > czujnikBariera) {      czujnikStatus = true;
-    } else {      czujnikStatus = false;    }
+  if (czasUstawionyPoprawnie) {    if (analogRead(czujnik) > czujnikBariera) {      czujnikStatus = false;
+    } else {      czujnikStatus = true;    }
 /////////////////////////////PARSE TIME
     String now = timeClient.getFormattedTime();    godzina = now.substring(0, 2).toInt();    minuta = now.substring(3, 5).toInt();    sekunda = now.substring(6, 8).toInt();
 
 ////////////////////////////check wifi
     if (WiFi.status() == WL_CONNECTED) {      digitalWrite(ErrorWifi, LOW);
-    } else  {        if ((minuta % 2) == 0){digitalWrite(ErrorWifi, HIGH);      WiFi.disconnect();      WiFi.begin(ssid, password);      delay(15000);      Serial.print(".");      }          }
+    } else  {        if ((minuta % 2) == 0){digitalWrite(ErrorWifi, HIGH);      WiFi.disconnect();   delay(15000);    WiFi.begin(ssid, password);      delay(15000);   WiFi.config(ip, gateway, subnet);    Serial.print(".");      }          }
 
 
     ///////////////////////////reset
